@@ -1,54 +1,47 @@
-#include <iostream>
 #include <cmath>
-
-double edge;			//Designation of global variables
-
-
-//A brief calculation of the volume
-//Return 0 If no errors
-int
-CalculateVolume ()
+#include <iostream>
+/**
+* \brief calculation of a given function CalculateVolume(edge)
+* \ param function variables edge
+* \ return calculated value of the function CalculateVolume
+*/
+double CalculateVolume(const double edge);
+/**
+* \brief calculation of a given function CalculateFaceArea(edge)
+* \ param function variables edge
+* \ return calculated value of the function CalculateFaceArea
+*/
+double CalculateFaceArea(const double edge);
+/**
+* \brief calculation of a given function CalculateTotalSurfaceArea(edge)
+* \ param function variables edge
+* \ return calculated value of the function CalculateTotalSurfaceArea
+*/
+double CalculateTotalSurfaceArea(const double edge);
+/**
+* \ brief function main
+* \ param
+* \return 0 if the program is executed
+*/
+int  main()
 {
-  double Volume;
-  Volume = pow (edge, 3);
-  std::cout << "Volume=" << Volume << std::endl;
-  return 0;
+	double edge;
+	std::cout << "enter the edge: ";
+	std::cin >> edge;
+	std::cout << "Volume=" << CalculateVolume(edge) << std::endl;
+	std::cout << "FaceArea=" << CalculateFaceArea(edge) << std::endl;
+	std::cout << "TotalSurfaceArea=" << CalculateTotalSurfaceArea(edge) << std::endl;
+	return 0;
 }
-
-
-//A brief calculation of the face area
-//Return 0 If no errors
-int
-CalculateFaceArea ()
+double CalculateVolume(const double edge)
 {
-  double FaceArea;
-  FaceArea = pow (edge, 2);
-  std::cout << "FaceArea=" << FaceArea << std::endl;
-  return 0;
+	return pow(edge, 3);
 }
-
-
-//A brief calculation of the total surface area
-//Return 0 If no errors
-int
-CalculateTotalSurfaceArea ()
+double CalculateFaceArea(const double edge)
 {
-  double TotalSurfaceArea;
-  TotalSurfaceArea = 6 * pow (edge, 2);
-  std::cout << "TotalSurfaceArea=" << TotalSurfaceArea << std::endl;
-  return 0;
+	return pow(edge, 2);
 }
-
-
-//Brief Entry point
-//Return 0 If no errors
-int
-main ()
+double CalculateTotalSurfaceArea(const double edge)
 {
-  std::cout << "enter the edge: ";	//enter the value of two variables num1 and num2
-  std::cin >> edge;
-  CalculateVolume ();
-  CalculateFaceArea ();
-  CalculateTotalSurfaceArea ();
-  return 0;
+	return 6 * pow(edge, 2);
 }
