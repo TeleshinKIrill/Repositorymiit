@@ -1,32 +1,37 @@
-#include <iostream>
 #include <cmath>
+#include <iostream>
 
-const double x =1.825;
-const double y =18.225;
-const double z =-3.298;
-
-
-//brief Calculates the variable a
-//Return 0 If no errors
-int CalculateVarA(){
-double a =pow(x,y/x)-pow(y/x,1./3);;
-std::cout << "\na= " << a;
-return 0;
+/**
+* \ brief calculation of a given function a(x,y,z)
+* \ param function variables x,y,z
+* \ return function variables A
+*/
+double CalculateVarA(const double x, const double y, const double z);
+/**
+* \ brief calculation of a given function b(x,y,z)
+* \ param function variables x,y,z
+* \ return calculated value of the function B
+*/
+double CalculateVarB(const double x, const double y, const double z);
+/**
+* \brief function main
+* \param
+* \return 0,if the program is executed
+*/
+int  main()
+{
+	const double x = 1.825;
+	const double y = 18.225;
+	const double z = -3.298;
+	std::cout << "x = " << x << " y = " << y << " z = " << z << " a = " << CalculateVarA(x, y, z) << " b = " << CalculateVarB(x, y, z);
+	return 0;
 }
-//brief Calculates the variable b
-//Return 0 If no errors
-int CalulacteVarB(){
-double b =(y-x)+(((y-z)/(y-x))/(3+ pow(z,2)/5));
-std::cout <<"\nb= " << b;
-return 0;
-
+double CalculateVarA(const double x, const double y, const double z)
+{
+	return pow(x, y / x) - pow(y / x, 1. / 3);
 }
-//brief Entry point
-//Return 0 If no errors
-int main() {
-double x, y, z;
-std::cout << "\nx= " << x << "\ny= " << y << "\nz= " << z;
-CalculateVarA();
-CalulacteVarB();
+double CalculateVarB(const double x, const double y, const double z)
+{
+	return (y - x) + (((y - z) / (y - x)) / (3 + pow(z, 2) / 5));
 }
 
