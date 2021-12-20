@@ -5,7 +5,7 @@
 *\param  - the value of mass and the value of the gravitational constant
 *\return gravity
 */
-double weight(const double weight1, const double g);
+double mass(const double weight1, const double g);
 /**
 * \ brief function main
 * \ param
@@ -13,15 +13,15 @@ double weight(const double weight1, const double g);
 */
 int main()
 {
-	double weight1;
+	double mass1;
 	const double g = 9.8;
 	std::cout << "enter the mass-m=";
-	std::cin >> weight1;
-	std::cout << "bag weight=" << weight(weight1, g) << std::endl;
-	std::cout << "Gravity=" << weight(weight1, g);
+	std::cin >> mass1;
+	std::cout << "bag weight=" << mass(mass1, g) << std::endl;
+	std::cout << "Gravity=" << mass(mass1, g);
 	return 0;
 }
-double weight(const double weight1, const double g)
+double mass(const double mass1, const double g)
 {
-	return (g * weight1);
+	return (g * mass1);
 }
