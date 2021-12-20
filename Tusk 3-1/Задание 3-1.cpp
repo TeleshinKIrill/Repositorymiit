@@ -1,31 +1,27 @@
 #include <iostream>
 #include <cmath>
-
-double Y_axis;//Designation of global variables
-
-//a short formula for calculating the value on the Y axis
-//Return 0 If no errors
-int calculatingY_axisXoordinates(){
-for (double x=0; x<2; x+=0.2){
-Y_axis=0.29*pow(x,3)+x-1.2502;
-std::cout<<"y=" << Y_axis <<std::endl;}
- return 0;
+/**
+*\ brief  The volume of the Parallelepiped
+*\ param width,length,height
+*\ return volume
+*/
+double funct(double x);
+/**
+*\ brief  The area of the Parallelepiped
+*\ param width,length,height
+*\ return  area
+*/
+int main()
+{
+    double x;
+    for (int i = 0; i <= 10; i++)
+    {
+        x = 0.0 + 0.2 * i;
+        std::cout << "For x=" << x << " y= " << funct(x) << "\n";
+    }
+    return 1;
 }
-
-
-//a brief output of value values along the x axis
-//Return 0 If no errors
-int calculatinX_axisXoordinates(){
-for (double x=0; x<2; x+=0.2){
-std::cout<<"x=" << x <<std::endl;}
-  return 0;
-}
-
-//Brief Entry point
-//Return 0 If no errors
-int main (){
-  calculatingY_axisXoordinates();
-  std::cout<<"--------"<<std::endl;
-  calculatinX_axisXoordinates();
-  return 0;
+double funct(double x)
+{
+    return 0.29 * pow(x, 3) + x - 1.2502;
 }
