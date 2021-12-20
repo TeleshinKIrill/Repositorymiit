@@ -1,27 +1,27 @@
 #include <cmath>
 #include <iostream>
 /**
-* \brief calculation of a given function CalculateVolume(edge)
+* \ a brief calculation of the volume of a given function
 * \ param function variables edge
 * \ return calculated value of the function CalculateVolume
 */
 double CalculateVolume(const double edge);
 /**
-* \brief calculation of a given function CalculateFaceArea(edge)
+* \ brief calculation of the surface area of a given function
 * \ param function variables edge
-* \ return calculated value of the function CalculateFaceArea
+* \ return calculated value of the surface area of a given function
 */
 double CalculateFaceArea(const double edge);
 /**
-* \brief calculation of a given function CalculateTotalSurfaceArea(edge)
+* \ brief calculation of a given function of the total surface area
 * \ param function variables edge
-* \ return calculated value of the function CalculateTotalSurfaceArea
+* \ return calculated value of the function of the total surface area
 */
 double CalculateTotalSurfaceArea(const double edge);
 /**
 * \ brief function main
 * \ param
-* \return 0 if the program is executed
+* \ return 0 if the program is executed
 */
 int  main()
 {
