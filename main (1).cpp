@@ -1,48 +1,71 @@
 #include <iostream>
 #include <cmath>
-/**
-*\ brief recursive calculation of the sum of the first n terms of the sequence
-*\ param n - number of sequence members
-*\ return the amount
+
+/*
+*\brief Calculation of the recurrent expression.
+*\param k Index of a row member.
+*\return Value of the recurrence relation.
 */
-double sequenceRec(int n);
-/**
-*\ brief recursive calculation of the sum of the first terms of a sequence not less than a given number e
-*\ param e - the specified number
-*\ return the amount
+double sequenceRec(const size_t k);
+
+/*
+*\brief Calculation of the sum of the series.
+*\param n Number of row members.
+*\return Value of the amount.
 */
-double sequenceRec2(double e);
+double Sum(const size_t n);
+
+/*
+*\brief Calculation of the sum of a series with a value greater than E.
+*\param e Calculation error.
+*\return Value of the amount.
+*/
+double SumE(const double e);
+
+/*
+*\brief Entry point to the program.
+*\return 0 if successful.
+*/
 int main()
 {
-int n;
-double e;
-std::cout << "Enter n "; std::cin >> n;
-std::cout << "Enter e "; std::cin >> e;
-std::cout << "The sum of the members of the sequence for n = " << n << " " << sequenceRec(n) << "\n";
-std::cout << "The sum of the members of the sequence for e = " << e << " " << sequenceRec2(e) << "\n";
-return 0;
+	std::cout << "Enter number of elements in sequence - ";
+	size_t n = 0;
+	std::cin >> n;
+
+	std::cout << "Sum of elements = " << Sum(n) << "\n";
+
+	std::cout << "Enter e = ";
+	double e;
+	std::cin >> e;
+	std::cout << "Sum of elements less than e = " << SumE(e);
+	return 0;
 }
-double sequenceRec(int n)
+
+double sequenceRec(const size_t k)
 {
-double s = 1;
-double member_sequence = 1;
-for (int k = 2; k <= n; k++)
-{
-member_sequence = -member_sequence / (k*(k+1));
-s += member_sequence;
+	return pow((-1.0), k) / ((k + 1.0) * (k + 2.0));
 }
-return s;
+
+double Sum(const size_t n)
+{
+	double sum = 1.0;
+	for (size_t k = 0; k < n; k++)
+	{
+		sum += sequenceRec(k);
+		k++;
+	}
+	return sum;
 }
-double sequenceRec2(double e)
+
+double SumE(const double e)
 {
-double s = 1;
-double member_sequence = 1;
-int k = 2;
-do
-{
-member_sequence = -member_sequence / (k * (k + 1));
-s += member_sequence;
-k++;
-} while (abs(member_sequence) > e);
-return s;
+	size_t k = 0;
+	double current, sum;
+	current = sequenceRec(k);
+	while (current > e) {
+		sum = sum + current;
+		k++;
+		current = sequenceRec(k);
+	}
+	return sum;
 }
