@@ -1,250 +1,229 @@
 #include <iostream>
+#include <string>
 #include <random>
 
 using namespace std;
 
 /**
- * \brief Array size input function.
- * \return Returns the size of the array.
- */
-size_t getSize();
+ * \brief Checking the input of the array size.
+ * \return The size of the array.
+*/
+size_t GetSize();
+
+/**
+* \brief Replacing array elements with odd numbers with squares of their numbers.
+ * \param my_array array.
+ * \param size the size of the array.
+ * \return array.
+*/
+void get_product_even_numberss(int* my_array, const size_t size);
 
 /**
 * \brief Filling an array with random numbers.
  * \param size the size of the array.
  * \param min_value the minimum value of the array elements.
  * \param max_value is the maximum value of the array elements.
- * \return Returns a filled array.
- */
+ * \return filled array.
+*/
 int* input_random(size_t size, int min_value, int max_value);
 
 /**
- * \short description Array output.
- * \parameter new_array array.
- * \size of the array size parameter.
-*/
-void output_array(const int* new_array, const size_t size);
+* \brief Array output to the console.
+ * \param my_array array.
+ * \param size the size of the array.
+ */
+void output_array(const int* my_array, size_t size);
 
 /**
- * \brief Function of filling the array manually
+* \brief The function determines whether there are positive elements divisible by a given number k with a remainder of 2.
+ * \param my_array array.
  * \param size the size of the array.
- * \return Returns a filled array.
+ * \return true if available, false if not.
+ */
+bool finding_positive_elements (const int* my_array, const size_t size);
+
+/**
+ * \brief Calculation of the product of even array elements.
+ * \param my_array array.
+ * \param size the size of the array.
+ * \return the Work.
+*/
+int product_elements_even_value (int* my_array, const size_t size);
+
+/**
+* \brief Method that returns an array filled in by the user.
+ * \param size the size of the array.
+ * \param min_value the minimum value of the array elements.
+ * \param max_value is the maximum value of the array elements.
+ * \return filled array.
  */
 int* user_array(size_t size);
 
 /**
- *\brief Replacing array elements with odd numbers with squares of their numbers.
- * \param min_value - border on the array. 
- * \param max_value - array boundary.
+ * \brief Array input options.
  */
-void get_product_even_numbers(const int* new_array, size_t size);
-
-/**
-* \brief The product of elements having an even value.
- * \param min_value - border on the array.
- * \param max_value - array boundary.
- */
-void product_elements_even_value(const int* new_array, size_t size);
-
-/**
- * \brief Determines whether there are positive elements in this array that are divisible by a given number with a remainder of 2.
- * \param size the size of the array.
- * \return Returns the product of array elements by their numbers
- */
-void finding_positive_elements(const int* new_array, const size_t size,int* pk);
-
-/**
-* \brief Array input options.
- */
-enum class ARRAY_INPUT
+enum class array_input_way
 {
-	RANDOMLY, MANUALLY
+    random,keyboard
 };
-
 /**
-* \brief Program entry point
- * \return returns 0 if successful
+* \brief Entry point to the program.
+ * \return 0, if successful.
  */
 int main()
 {
-	size_t size = getSize();
+    size_t size = GetSize();
 
-	cout << "Fill in the array:\n";
-	cout << static_cast<int>(ARRAY_INPUT::RANDOMLY) << " - accidentally,\n";
-	cout << static_cast<int>(ARRAY_INPUT::MANUALLY) << " - manually.\n";
-	int choice;
-	cin >> choice;
+    if (size == 0)
+        return 1;
 
-	const auto chosen = static_cast<ARRAY_INPUT>(choice);
+    cout << "How do you want to fill the array?\n";
+    cout << static_cast<int>(array_input_way::random) << " - random,\n";
+    cout << static_cast<int>(array_input_way::keyboard) << " - keyboard.\n";
+    cout << "Your choice: ";
+    int choice;
+    cin >> choice;
 
-	int* new_array = nullptr;
+    const auto chosen = static_cast<array_input_way>(choice);
+    int* my_array = nullptr;
 
-	auto min_value = -15;
-	auto max_value = 15;
+    auto min_value = 0;
+    auto max_value = 0;
+    cout << "Enter a range of array numbers (minimum first, then maximum) " << endl;
+    cin >> min_value >> max_value;
+    if (max_value <= min_value)
+    {
+        cout << "The wrong range is entered!" << endl;
+    }
 
-	switch (chosen)
-	{
-	case ARRAY_INPUT::RANDOMLY:
-	{
-		new_array = input_random(size, min_value, max_value);
-		break;
-	}
-	case ARRAY_INPUT::MANUALLY:
-	{
-		new_array = user_array(size);
-		break;
-	}
-	}
+    switch (chosen)
+    {
+    case array_input_way::random: 
+    {
+        my_array = input_random(size, min_value, max_value);
+        break;
+    }
+    case array_input_way::keyboard:
+    {
+        my_array = user_array(size);
+        break;
+    }
+    }
 
-	output_array(new_array, size);
+    output_array(my_array, size);
 
-	get_product_even_numbers(new_array, size);
+    cout << "The product of even array elements: " << product_elements_even_value(my_array, size) << endl;
 
-	product_elements_even_value(new_array, size);
+    cout << "Array with replaced elements: ";
+    get_product_even_numberss(my_array, size);
 
-	finding_positive_elements(new_array, size);
+    if (finding_positive_elements(my_array, size)) {
+        cout << "There are positive elements divisible by a given number k with a remainder of 2";
+    }
+    else {
+        cout << "There are no positive elements divisible by a given number k with a remainder of 2";
+    }
+    cout << endl;
 
-	if (new_array != nullptr)
-	{
-		delete[] new_array;
-		new_array = nullptr;
-	}
+    if (my_array != nullptr) {
 
-	return 0;
+        delete[] my_array;
+        my_array = nullptr;
+
+    }
+    return 0;
+
 }
 
-size_t getSize()
-{
-	int size = 0;
-	cout << "Enter the size of the array" << endl;
-	cin >> size;
-	if (size <= 0)
-	{
-		cout << "Incorrect size";
-		return 0;
-	}
-	else
-		return size;
+size_t GetSize() {
+    int size = 0;
+    cout << "Enter the size of the array" << endl;
+    cin >> size;
+    if (size <= 0)
+    {
+        cout << "Incorrect size entered";
+        return 0;
+    }
+    else
+        return size;
 };
 
-void output_array(const int* new_array, const size_t size) 
-{
-	if (new_array == nullptr)
-	{
-		cout << "The array does not exist\n";
-	}
-	else
-	{
-		cout << "Array:\n";
-		for (int index = 0; index < size; index++)
-		{
-			cout << new_array[index] << " ";
-		}
-		cout << "\n";
+void get_product_even_numberss(int* my_array, const size_t size) {
+    for (size_t index = 0; index < size; index += 2) {
+        my_array[index] = index * index;
+    }
+    output_array(my_array, size);
+}
 
-	}
+bool finding_positive_elements(const int* my_array, const size_t size) {
+    int k = 0;
+    int counte_lements = 0;
+    cout << "Enter k " << endl;
+    cin >> k;
+    if (k < 3) {
+        cout << "k < 3: The remainder of the division cannot be equal to 2. Enter k > 3 " << endl;
+        return false;
+    }
+
+    for (size_t index = 1; index < size; index++) {
+        if (my_array[index] > 0 && my_array[index] % k == 2) {
+            counte_lements++;
+        }
+    }
+    return counte_lements > 0;
+
+}
+
+int product_elements_even_value(int* my_array, const size_t size)
+{
+    int comp = 1;
+    for (size_t index = 0; index < size; index++) {
+        if (my_array[index] % 2 == 0)
+            comp = comp * my_array[index];
+    }
+    return comp;
+}
+
+void output_array(const int* my_array, const size_t size)
+{
+    if (my_array == nullptr)
+    {
+        cout << "The array does not exist";
+    }
+    else {
+        cout << "\nArray:\n";
+        for (size_t index = 0; index < size; index++) {
+            cout << my_array[index] << " ";
+        }
+        cout << "\n";
+
+    }
 }
 
 int* input_random(const size_t size, const int min_value, const int max_value)
 {
-	random_device rd;
-	mt19937 gen(rd());
-	const std::uniform_int_distribution<> uniformIntDistribution(min_value, max_value);
-	auto* new_array = new int[size];
+    random_device rd;
 
-	for (int index = 0; index < size; index++)
-	{
-		new_array[index] = uniformIntDistribution(gen);
-	}
-	return new_array;
+    mt19937 gen(rd());
+
+     std::uniform_int_distribution<> uniformIntDistribution(min_value, max_value);
+
+    auto* my_array = new int[size];
+
+    for (size_t index = 0; index < size; index++)
+    {
+        my_array[index] = uniformIntDistribution(gen);
+    }
+    return my_array;
 }
 
-int* user_array(const size_t size) 
+int* user_array(const size_t size)
 {
-	auto* array = new int[size];
-	cout << "Enter the array elements" << "\n";
-
-	for (size_t index = 0; index < size; index++)
-	{
-		cin >> array[index];
-	}
-
-	return array;
-}
-
-void get_product_even_numbers(const int* new_array, const size_t size)
-{
-	int count = 0;
-	int mult = 1;
-
-	if (new_array == nullptr)
-	{
-		cout << "The array does not exist\n";
-	}
-
-	for (size_t index = 0; index < size; ++index)
-	{
-		if (new_array[index] % 2 == 0)
-		{
-			mult *= new_array[index];
-			count++;
-		}
-	}
-	if (count == 0)
-	{
-		cout << "There are no such elements\n";
-	}
-	else
-	{
-		cout << "The product of even elements: " << mult << "\n\n";
-	}
-}
-
-void product_elements_even_value(const int* new_array, const size_t size)
-{
-	cout << "array after replacement :";
-	for (size_t index = 0; index < size; index+=2)
-	{
-			new_array[index]= index*index;
-			output_array(new_array, size);
-	}
-}   
-
-void finding_positive_elements(const int* new_array, const size_t size,int* pk)
-{
-	cout << "enter an integer greater than 2" << endl;
-	int k;
-	int count = 0;
-	while (true)
-	{
-		cin >> k;
-		if (k > 2)
-		{
-			break;
-		}
-		else
-		{
-			cout << "repeat the input" << endl;
-		}
-	}
-	*pk = k;
-	int d = 0;
-	for (int index = 0; index < size ; ++index)
-	{
-		if (new_array[index] % k == 2)
-		{
-			++d;
-			cout << d << endl;
-			count++;
-		}
-	}
-	if(count== 0)
-	{
-		cout << "there are no numbers in the array that give the remainder of 2 from division by " << k << endl;
-	}
-	else
-	{
-		cout << "in the array " << d << " numbers divisible by " << k << " with a remainder of 2" << endl;
-	}
-	
+    auto* array = new int[size];
+    cout << "Введите элементы массива" << "\n";
+    for (size_t index = 0; index < size; index++)
+    {
+        cin >> array[index];
+    }
+    return array;
 }
